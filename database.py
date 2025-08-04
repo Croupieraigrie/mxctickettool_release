@@ -1,5 +1,5 @@
 import aiomysql
-from config import DB_HOST, DB_USER, DB_PASSWORD, DB_NAME
+from bot.config import Config
 
 class AsyncDatabase:
     def __init__(self):
@@ -7,18 +7,18 @@ class AsyncDatabase:
 
     async def init_pool(self):
         self.pool = await aiomysql.create_pool(
-            host=DB_HOST,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            db=DB_NAME,
+            host=Config.DB_HOST,
+            user=Config.DB_USER,
+            password=Config.DB_PASSWORD,
+            db=Config.DB_NAME,
             autocommit=True,
             minsize=1,
-            maxsize=10
+            maxsize=10,
         )
 
     async def query(self, sql, params=None):
         async with self.pool.acquire() as conn:
-            async with conn.cursor(aiomysql.DictCursor) as cur:
+            async with conn.cursor() as cur:
                 await cur.execute(sql, params or ())
                 result = await cur.fetchall()
                 return result
