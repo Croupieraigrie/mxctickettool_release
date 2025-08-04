@@ -1,6 +1,9 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+import logging
+
+logger = logging.getLogger("bot")
 
 class TicketCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -27,4 +30,5 @@ class TicketCog(commands.Cog):
         await interaction.response.send_message("🚪 Ticket fermé. Merci pour ta demande.", ephemeral=True)
 
 async def setup(bot: commands.Bot):
+    logger.info("📦 Cog Ticket chargé")
     await bot.add_cog(TicketCog(bot))

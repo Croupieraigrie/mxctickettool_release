@@ -1,5 +1,5 @@
 import discord
-from config import TICKET_CHANNEL_ID
+from mxctickettool.config import TICKET_CHANNEL_ID
 from database import create_ticket, close_ticket
 
 async def open_ticket_dm(ctx):

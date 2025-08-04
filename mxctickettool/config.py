@@ -3,6 +3,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+GUILD_IDS = [int(guild_id) for guild_id in os.getenv("GUILD_ID", "").split(",") if guild_id]
+TICKET_CHANNEL_ID = [1401946039283482634]
+
+
 def require_env_var(name: str) -> str:
     value = os.getenv(name)
     if value is None:
